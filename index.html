@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUMSS Strand — Humanities and Social Sciences</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & basics */
+    * {margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth;}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    /* Dark Mode Toggle */
+    #darkToggle {
+      position: absolute;
+      top: 20px; right: 20px;
+      padding: 10px 15px;
+      border:none;
+      border-radius:8px;
+      background: #fff;
+      color: #6a11cb;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    #darkToggle:hover {opacity:0.8;}
+
+    /* Navigation */
+    nav {
+      background: #1f1f1f;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 15px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    nav ul {
+      display: flex; justify-content: center; list-style: none; gap: 25px; flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none; font-weight: 600; color: #ccc;
+      transition: color 0.3s;
+    }
+    nav a:hover, nav a.active {color: #6a11cb;}
+
+    /* Sections */
+    section {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      transition: transform 0.5s, opacity 0.5s;
+    }
+    section h2 {
+      font-size: 2em;
+      color: #6a11cb;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #2575fc;
+      border-radius: 2px;
+      margin-top: 8px;
+    }
+    section p, section ul {margin-bottom: 20px;}
+    ul li {margin-bottom: 10px;}
+
+    /* Video Container */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-top: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+    .video-container iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Comment Section */
+    #comments form input, #comments form textarea {
+      width: 100%; padding: 10px; margin-bottom: 10px;
+      border-radius: 5px; border: none; resize: none;
+      background: rgba(255,255,255,0.05); color: #f0f0f0;
+    }
+    #comments form button {
+      padding:10px 20px; border:none; border-radius:5px;
+      background:#6a11cb; color:white; cursor:pointer;
+    }
+    #comments form button:hover {opacity:0.8;}
+    #comments div.comment {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    /* Fade animation */
+    .fade {opacity:0; transform: translateY(50px); transition: all 1s ease;}
+    .fade.visible {opacity:1; transform: translateY(0);}
+
+    /* Footer */
+    footer {
+      text-align:center;
+      padding:40px 20px;
+      background:#1f1f1f;
+      color:#ccc;
+      font-size:0.95em;
+      margin-top: 60px;
+    }
+
+    /* Dark Mode Styling */
+    body.dark {
+      background: #121212;
+      color: #f0f0f0;
+    }
+    body.dark nav {background:#1f1f1f;}
+    body.dark footer {background:#1f1f1f;}
+    body.dark nav a {color:#ccc;}
+    body.dark nav a.active {color:#6a11cb;}
+    body.dark section {background: rgba(255,255,255,0.03);}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>HUMSS Strand</h1>
+  <p>Humanities and Social Sciences — Understanding People, Culture, and Society</p>
+  <button id="darkToggle">Toggle Dark Mode</button>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#mission">Mission & Vision</a></li>
+    <li><a href="#why">Why HUMSS?</a></li>
+    <li><a href="#subjects">Core Subjects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#society">Society</a></li>
+    <li><a href="#video">Video</a></li>
+    <li><a href="#comments">Comments</a></li>
+  </ul>
+</nav>
+
+<section id="intro" class="fade">
+  <h2>Introduction to HUMSS</h2>
+  <p>The Humanities and Social Sciences (HUMSS) strand is designed to deepen your understanding of human life, culture, and society. Students explore how people think, behave, and interact in communities, preparing them to become socially responsible citizens.</p>
+  <p><em>Comment:</em> This section introduces HUMSS and highlights its importance in developing critical thinking and empathy.</p>
+</section>
+
+<section id="mission" class="fade">
+  <h2>Mission & Vision</h2>
+  <p>HUMSS aims to cultivate articulate, analytical, and socially aware individuals. It empowers students to communicate effectively, research responsibly, and contribute meaningfully to society.</p>
+  <p><em>Comment:</em> Explains the purpose of HUMSS beyond academics, emphasizing values and goals.</p>
+</section>
+
+<section id="why" class="fade">
+  <h2>Why Choose HUMSS?</h2>
+  <p>HUMSS is ideal for students who enjoy writing, discussion, reading, and exploring societal issues. It’s perfect for future leaders, communicators, educators, journalists, and advocates.</p>
+  <p><em>Comment:</em> Highlights the variety of skills and opportunities HUMSS provides for personal growth and career preparation.</p>
+</section>
+
+<section id="subjects" class="fade">
+  <h2>Core Subjects</h2>
+  <ul>
+    <li>Creative Writing — Expressing ideas, emotions, and imagination.</li>
+    <li>Disciplines & Ideas in Social Sciences — Understanding social structures and patterns.</li>
+    <li>Philippine Politics & Governance — Learning about local government and civic duties.</li>
+    <li>World Religions & Belief Systems — Appreciating cultural diversity and beliefs.</li>
+  </ul>
+  <p><em>Comment:</em> Each subject develops critical thinking, creativity, and social awareness.</p>
+</section>
+
+<section id="skills" class="fade">
+  <h2>Skills Developed</h2>
+  <ul>
+    <li>Critical Thinking — Analyzing problems and proposing solutions.</li>
+    <li>Communication — Public speaking, writing, and debate.</li>
+    <li>Empathy & Social Awareness — Understanding societal issues.</li>
+    <li>Leadership & Collaboration — Organizing projects and working with teams.</li>
+  </ul>
+  <p><em>Comment:</em> These skills are highly valuable for both college and real-life situations.</p>
+</section>
+
+<section id="careers" class="fade">
+  <h2>Careers for HUMSS Students</h2>
+  <ul>
+    <li>Teacher / Educator</li>
+    <li>Journalist / Writer</li>
+    <li>Psychologist / Counselor</li>
+    <li>Lawyer / Advocate</li>
+    <li>Social Worker / NGO Professional</li>
+  </ul>
+  <p><em>Comment:</em> Students can see real-world career options HUMSS prepares them for.</p>
+</section>
+
+<section id="society" class="fade">
+  <h2>HUMSS and Society</h2>
+  <p>HUMSS students analyze social issues, conduct research, and engage in community activities. They learn to advocate for justice, equality, and positive change in society.</p>
+  <p><em>Comment:</em> Highlights HUMSS relevance in understanding and improving real-world social systems.</p>
+</section>
+
+<section id="video" class="fade">
+  <h2>Watch: HUMSS Tips & Advice</h2>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/cm-RjLcD9oE" title="Facts about HUMSS" allowfullscreen></iframe>
+  </div>
+  <p>This video provides inspiration for HUMSS students, emphasizing communication skills, passion, and purpose.</p>
+  <p><em>Comment:</em> Videos help visual learners connect with HUMSS concepts interactively.</p>
+</section>
+
+<section id="comments" class="fade">
+  <h2>Comments</h2>
+  <p>Share your thoughts or questions about HUMSS:</p>
+  <form id="commentForm">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="comment" placeholder="Your comment" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="commentSection"></div>
+</section>
+
+<footer>
+  <p>© 2025 HUMSS Strand | Created by Group 2</p>
+</footer>
+
+<script>
+  // Fade in sections on scroll
+  const faders = document.querySelectorAll('.fade');
+  window.addEventListener('scroll', () => {
+    faders.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 100) sec.classList.add('visible');
+    });
+
+    // Highlight active nav link
+    document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+    faders.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if(rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2){
+        const id = sec.id;
+        document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
+      }
+    });
+  });
+
+  // Dark mode toggle
+  const toggle = document.getElementById('darkToggle');
+  toggle.addEventListener('click', () => document.body.classList.toggle('dark'));
+
+  // Comment submission
+  const form = document.getElementById('commentForm');
+  const commentSection = document.getElementById('commentSection');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+    if(name && comment){
+      const newComment = document.createElement('div');
+      newComment.classList.add('comment');
+      newComment.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
+      commentSection.prepend(newComment);
+      form.reset();
+    }
+  });
+</script>
+
+</body>
+</html>
