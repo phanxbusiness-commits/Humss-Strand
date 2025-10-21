@@ -128,6 +128,24 @@
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 10px;
+      position: relative;
+    }
+
+    /* Heart button */
+    .heart-btn {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #ccc;
+      transition: transform 0.2s, color 0.3s;
+    }
+    .heart-btn.liked {
+      color: #ff4d6d;
+      transform: scale(1.2);
     }
 
     /* Fade animation */
@@ -181,19 +199,16 @@
 <section id="intro" class="fade">
   <h2>Introduction to HUMSS</h2>
   <p>The Humanities and Social Sciences (HUMSS) strand is designed to deepen your understanding of human life, culture, and society. Students explore how people think, behave, and interact in communities, preparing them to become socially responsible citizens.</p>
-  <p><em>Comment:</em> This section introduces HUMSS and highlights its importance in developing critical thinking and empathy.</p>
 </section>
 
 <section id="mission" class="fade">
   <h2>Mission & Vision</h2>
   <p>HUMSS aims to cultivate articulate, analytical, and socially aware individuals. It empowers students to communicate effectively, research responsibly, and contribute meaningfully to society.</p>
-  <p><em>Comment:</em> Explains the purpose of HUMSS beyond academics, emphasizing values and goals.</p>
 </section>
 
 <section id="why" class="fade">
   <h2>Why Choose HUMSS?</h2>
   <p>HUMSS is ideal for students who enjoy writing, discussion, reading, and exploring societal issues. It’s perfect for future leaders, communicators, educators, journalists, and advocates.</p>
-  <p><em>Comment:</em> Highlights the variety of skills and opportunities HUMSS provides for personal growth and career preparation.</p>
 </section>
 
 <section id="subjects" class="fade">
@@ -204,7 +219,6 @@
     <li>Philippine Politics & Governance — Learning about local government and civic duties.</li>
     <li>World Religions & Belief Systems — Appreciating cultural diversity and beliefs.</li>
   </ul>
-  <p><em>Comment:</em> Each subject develops critical thinking, creativity, and social awareness.</p>
 </section>
 
 <section id="skills" class="fade">
@@ -215,7 +229,6 @@
     <li>Empathy & Social Awareness — Understanding societal issues.</li>
     <li>Leadership & Collaboration — Organizing projects and working with teams.</li>
   </ul>
-  <p><em>Comment:</em> These skills are highly valuable for both college and real-life situations.</p>
 </section>
 
 <section id="careers" class="fade">
@@ -227,13 +240,11 @@
     <li>Lawyer / Advocate</li>
     <li>Social Worker / NGO Professional</li>
   </ul>
-  <p><em>Comment:</em> Students can see real-world career options HUMSS prepares them for.</p>
 </section>
 
 <section id="society" class="fade">
   <h2>HUMSS and Society</h2>
   <p>HUMSS students analyze social issues, conduct research, and engage in community activities. They learn to advocate for justice, equality, and positive change in society.</p>
-  <p><em>Comment:</em> Highlights HUMSS relevance in understanding and improving real-world social systems.</p>
 </section>
 
 <section id="video" class="fade">
@@ -241,8 +252,6 @@
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/cm-RjLcD9oE" title="Facts about HUMSS" allowfullscreen></iframe>
   </div>
-  <p>This video provides inspiration for HUMSS students, emphasizing communication skills, passion, and purpose.</p>
-  <p><em>Comment:</em> Videos help visual learners connect with HUMSS concepts interactively.</p>
 </section>
 
 <section id="comments" class="fade">
@@ -261,19 +270,18 @@
 </footer>
 
 <script>
-  // Fade in sections on scroll
+  // Fade animation and navigation highlight
   const faders = document.querySelectorAll('.fade');
   window.addEventListener('scroll', () => {
     faders.forEach(sec => {
       const rect = sec.getBoundingClientRect();
-      if(rect.top < window.innerHeight - 100) sec.classList.add('visible');
+      if (rect.top < window.innerHeight - 100) sec.classList.add('visible');
     });
 
-    // Highlight active nav link
     document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
     faders.forEach(sec => {
       const rect = sec.getBoundingClientRect();
-      if(rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2){
+      if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
         const id = sec.id;
         document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
       }
@@ -281,22 +289,48 @@
   });
 
   // Dark mode toggle
-  const toggle = document.getElementById('darkToggle');
-  toggle.addEventListener('click', () => document.body.classList.toggle('dark'));
+  document.getElementById('darkToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
 
-  // Comment submission
+  // Comments + heart react + save to localStorage
   const form = document.getElementById('commentForm');
   const commentSection = document.getElementById('commentSection');
+  const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+
+  // Load saved comments
+  savedComments.forEach(commentHTML => {
+    const div = document.createElement('div');
+    div.classList.add('comment');
+    div.innerHTML = commentHTML;
+    commentSection.prepend(div);
+  });
+
+  // Submit comment
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
     const comment = document.getElementById('comment').value.trim();
-    if(name && comment){
+    if (name && comment) {
       const newComment = document.createElement('div');
       newComment.classList.add('comment');
-      newComment.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
+      newComment.innerHTML = `<strong>${name}</strong><p>${comment}</p>
+      <button class="heart-btn">🤍</button>`;
       commentSection.prepend(newComment);
       form.reset();
+
+      const allComments = Array.from(commentSection.querySelectorAll('.comment')).map(c => c.innerHTML);
+      localStorage.setItem('comments', JSON.stringify(allComments));
+    }
+  });
+
+  // Heart button toggle
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('heart-btn')) {
+      e.target.classList.toggle('liked');
+      e.target.textContent = e.target.classList.contains('liked') ? '❤️' : '🤍';
+      const allComments = Array.from(commentSection.querySelectorAll('.comment')).map(c => c.innerHTML);
+      localStorage.setItem('comments', JSON.stringify(allComments));
     }
   });
 </script>
